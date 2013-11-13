@@ -37,7 +37,7 @@ def get_happy_sad_count(location):
 	sad_count = 0
 	happy_query = {'q':':)', 'lang':'en', 'count':'100', 'result_type':'recent'}
 	sad_query = {'q':':(', 'lang':'en', 'count':'100', 'result_type':'recent'}
-	if location != "":
+	if location:
 		happy_query['locations'] = '{0}, {1}'.format(location[0], location[1])
 		sad_query['locations'] = '{0}, {1}'.format(location[0], location[1])
 	happy = api.request('search/tweets', happy_query)
