@@ -3,7 +3,7 @@ from flask import render_template, request, url_for, redirect
 import urllib2
 import urllib
 import json
-from happy_sad import get_happy_sad
+from happysad import get_happy_sad
 from forms import optionsForm
 
 
