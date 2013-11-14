@@ -62,7 +62,11 @@
           <div class="modal-body">
             <div class="container">
               <form action="/location" method="post" class="col-md-4"> 
-              Something here
+              {{ loc.hidden_tag() }}
+              <div class="container">
+              <span class="col-md-2 text-right">{{ loc.location.label }}</span>
+              <span class="col-md-1">{{ loc.location }}</span>   
+            </div>
             </div>
             <div class="modal-footer">
               <button type="button submit" class="btn btn-primary">Add Option!</button>
