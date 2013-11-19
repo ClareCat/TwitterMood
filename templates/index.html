@@ -1,72 +1,72 @@
 <!DOCTYPE html>
 <!-- This template was originally found at startbootstrap.com!  I then edited it a bit...  Thanks internet! -->
 <html class="full" lang="en"><!-- The full page image background will only work if the html has the custom class set to it! Don't delete it! -->
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta http-equiv="refresh" content="20" >
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta http-equiv="refresh" content="20" >
 
-    <title>Full Page Image Background Template for Bootstrap 3</title>
+  <title>242</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="static/css/bootstrap.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="static/css/bootstrap.css" rel="stylesheet">
 
-    <!-- Custom CSS for the 'Full' Template -->
-    <link href="static/css/the-big-picture.css" rel="stylesheet">
-  </head>
+  <!-- Custom CSS for the 'Full' Template -->
+  <link href="static/css/the-big-picture.css" rel="stylesheet">
+</head>
 
-  <body>
-      
-    <nav class="navbar navbar-fixed-bottom navbar-inverse" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">Mood Check</a>
-        </div>
+<body>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#" data-toggle="modal" data-target='#myModal'>Options</a></li>
-            <li><a href="#">Other Thing</a></li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container -->
-    </nav>
-    
-    <div class="container text">
-      <div class="row">
-        <div class="col-lg-6 col-sm-12">
-          <h1>How is Twitter feeling today?</h1>
-          <p>{{ curr }}</p>
-          <p>{{ delta }}</p>
-        </div>
+  <nav class="navbar navbar-fixed-bottom navbar-inverse" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        s
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="#" data-toggle="modal" data-target='#myModal'>Options</a></li>
+          <li><a href="#" data-toggle="modal" data-target='#analysisModal'>Mood Analysis</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+  </nav>
+
+  <div class="container text">
+    <div class="row">
+      <div class="col-lg-6 col-sm-12">
+        <h1>How is Twitter feeling today?</h1>
+        <p>{{ curr }}</p>
+        <p>{{ delta }}</p>
       </div>
     </div>
+  </div>
 
-    <!-- Modal For Location -->
-    <div class="modal fade" id="myModal" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Options</h4>
-          </div>
-          <div class="modal-body">
-            <div class="container">
-              <form action="/location" method="post" class="col-md-4"> 
+  <!-- Modal For Location -->
+  <div class="modal fade" id="myModal" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Options</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <form action="/location" method="post" class="col-md-4"> 
               {{ loc.hidden_tag() }}
               <div class="container">
-              <span class="col-md-2 text-right">{{ loc.location.label }}</span>
-              <span class="col-md-1">{{ loc.location }}</span>   
-            </div>
+                <span class="col-md-2 text-right">{{ loc.location.label }}</span>
+                <span class="col-md-1">{{ loc.location }}</span>   
+              </div>
             </div>
             <div class="modal-footer">
               <button type="button submit" class="btn btn-primary">Add Option!</button>
@@ -78,12 +78,41 @@
     <script>
       $('#myModal').css('position', 'absolute');
     </script>
-    
-    
-  <!-- javascript -->
-  <script src="static/js/jquery-1.10.2.js"></script>
-  <script src="static/js/bootstrap.js"></script>
+  </div>
 
+  <div class="modal fade" id="analysisModal" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Analyze</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <form action="/location" method="post" class="col-md-4">
+            {{ analyze.hidden_tag() }} 
+              <div class="container">
+                <span class="col-md-2 text-right">{{ analyze.mood.label }}</span>
+                <span class="col-md-1">{{ analyze.mood }}</span>   
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button submit" class="btn btn-primary">Go!</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      $('#analysisModal').css('position', 'absolute');
+    </script>
+    </div>
+
+
+
+    <!-- javascript -->
+    <script src="static/js/jquery-1.10.2.js"></script>
+    <script src="static/js/bootstrap.js"></script>
   </body>
 
-</html>
+  </html>

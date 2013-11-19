@@ -1,14 +1,15 @@
 from TwitterAPI import TwitterAPI
+from random import random
 
 def get_happy_sad(location):
 	"""
 	Central function for getting the happy and sad counts and strings
 	Returns the correct for the situation
 	"""
-	curr_happy, curr_sad = get_happy_sad_count(location)
+	curr_happy, curr_sad, tweet = get_happy_sad_count(location)
 	total_happy, total_sad = get_set_total(curr_happy, curr_sad)
 	curr_string, delta_string = get_strings(curr_happy, curr_sad, total_happy, total_sad)
-	return curr_string, delta_string
+	return curr_string, delta_string, tweet
 
 def get_strings(curr_happy, curr_sad, total_happy, total_sad):
 	"""
@@ -71,4 +72,7 @@ def get_happy_sad_count(location):
 		happy_count += 1
 	for item in sad:
 		sad_count += 1
-	return happy_count, sad_count
+	tweet = (happy[int(random()*len(happy))], "=)")
+	if random()*2 < 1:
+		tweet = (sad[int(random()*len(sad))], "=(")
+	return happy_count, sad_count, tweet

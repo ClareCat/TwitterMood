@@ -4,7 +4,7 @@ import urllib2
 import urllib
 import json
 from happysad import get_happy_sad
-from forms import optionsForm
+from forms import optionsForm, analyzeForm
 
 
 @app.route('/')
@@ -16,9 +16,8 @@ def index(location=None):
 	"""
 	if location:
 		get_location_data(location)
-	curr_string, delta_string = get_happy_sad(location)
-	location_form = optionsForm()
-	return render_template("index.html", curr=curr_string, delta=delta_string, loc=location_form)
+	curr_string, delta_string, tweet = "", "", ""#get_happy_sad(location)
+	return render_template("index.html", curr=curr_string, delta=delta_string, loc=optionsForm(), analyze=analyzeForm())
 
 @app.route('/location', methods=['GET', 'POST'])
 def location():
@@ -31,6 +30,7 @@ def location():
 		form = optionsForm()
 		location = form.location.data
 	return index(location)
+
 
 def get_location_data(location):
 	"""
