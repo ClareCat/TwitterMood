@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from wtforms import TextField, RadioField
+from wtforms import TextField, RadioField, HiddenField
 
 class optionsForm(Form):
 	"""
@@ -11,4 +11,6 @@ class analyzeForm(Form):
 	"""
 	Form for deciding whether a tweet is positive or negative
 	"""
-	mood = TextField("Idk what radio buttons are")
+	tweet = HiddenField('None')
+	actual = HiddenField('None')
+	mood = RadioField("Is this positive or negative?", choices=[("positive", "positive"), ("negative", "negative")])

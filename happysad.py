@@ -68,11 +68,16 @@ def get_happy_sad_count(location):
 		sad_query['locations'] = '{0}, {1}'.format(location[0], location[1])
 	happy = api.request('search/tweets', happy_query)
 	sad = api.request('search/tweets', sad_query)
+	h_list = []
+	s_list = []
 	for item in happy:
 		happy_count += 1
+		h_list.append(item)
 	for item in sad:
 		sad_count += 1
-	tweet = (happy[int(random()*len(happy))], "=)")
+		s_list.append(item)
+	tweet = (h_list[int(random()*len(h_list))]['text'], "positive")
 	if random()*2 < 1:
-		tweet = (sad[int(random()*len(sad))], "=(")
+		tweet = (s_list[int(random()*len(s_list))]['text'], "negative")
 	return happy_count, sad_count, tweet
+

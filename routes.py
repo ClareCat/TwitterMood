@@ -1,23 +1,40 @@
-from run import app
+from run import app, db
 from flask import render_template, request, url_for, redirect
 import urllib2
 import urllib
 import json
 from happysad import get_happy_sad
 from forms import optionsForm, analyzeForm
+from models import Analysis
 
 
-@app.route('/')
-def index(location=None):
+@app.route('/', methods=['GET', 'POST'])
+def index(location=None, new_loc=False):
 	"""
 	Runs the code to determine the mood of twitter
 	Renders the mood of twitter to the index page
+	If post request also inserts the analysis into the table
 	Default of no location entered which defaults to all of twitter
 	"""
+	correct_str = None
 	if location:
 		get_location_data(location)
-	curr_string, delta_string, tweet = "", "", ""#get_happy_sad(location)
-	return render_template("index.html", curr=curr_string, delta=delta_string, loc=optionsForm(), analyze=analyzeForm())
+	if request.method == 'POST' and not new_loc:
+		form = analyzeForm()
+		newAnalysis = Analysis(form.tweet.data, form.mood.data, form.actual.data)
+		db.session.add(newAnalysis)
+		db.session.commit()
+		if form.mood.data == form.actual.data:
+			correct_str = "You and Twitter agree that \"{a}\" is {b}".format(a=form.tweet.data.encode("utf-8"), b=form.actual.data)
+		else:
+			correct_str = "Twitter actually thinks that \"{a}\" is {b}.  Maybe you're confused.  Twitter wouldn't lie.".format(a=form.tweet.data.encode("utf-8"), b=form.actual.data)
+		correct_str = unicode(correct_str, errors='ignore')
+	curr_string, delta_string, tweet = get_happy_sad(location)
+	analysis = analyzeForm()
+	analysis.tweet.label = tweet[0]
+	analysis.tweet.data = tweet[0]
+	analysis.actual.data = tweet[1]
+	return render_template("index.html", curr=curr_string, delta=delta_string, loc=optionsForm(), analyze=analysis, correct=correct_str)
 
 @app.route('/location', methods=['GET', 'POST'])
 def location():
@@ -29,7 +46,7 @@ def location():
 	if request.method == 'POST':
 		form = optionsForm()
 		location = form.location.data
-	return index(location)
+	return index(location, True)
 
 
 def get_location_data(location):

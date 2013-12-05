@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
-  <meta http-equiv="refresh" content="20" >
+  <meta http-equiv="refresh" content="45" >
 
   <title>242</title>
 
@@ -44,11 +44,17 @@
   <div class="container text">
     <div class="row">
       <div class="col-lg-6 col-sm-12">
-        <h1>How is Twitter feeling today?</h1>
+        <h2>How is Twitter feeling today?</h2>
         <p>{{ curr }}</p>
         <p>{{ delta }}</p>
       </div>
     </div>
+    <br /><br /><p>
+    {% if correct %}
+    <h3><b>Thoughts on your previous analysis:</b></h3>
+    <p>{{ correct }}</p>
+    {% endif %}
+    </p>
   </div>
 
   <!-- Modal For Location -->
@@ -89,16 +95,23 @@
         </div>
         <div class="modal-body">
           <div class="container">
-            <form action="/location" method="post" class="col-md-4">
-            {{ analyze.hidden_tag() }} 
+            <form action="/" method="post" class="col-md-4">
+              {{ analyze.hidden_tag() }} 
               <div class="container">
-                <span class="col-md-2 text-right">{{ analyze.mood.label }}</span>
-                <span class="col-md-1">{{ analyze.mood }}</span>   
+                <div class="col-md-2">
+                {{ analyze.tweet.label }}
+                </div>
+                {% for subfield in analyze.mood %}
+                <div class="col-md-2">
+                  {{ subfield.label }}
+                  {{ subfield }}
+                </div>  
+                {% endfor %} 
               </div>
-            </div>
+            </div>         
             <div class="modal-footer">
-              <button type="button submit" class="btn btn-primary">Go!</button>
-            </form>
+              <button type="button submit" class="btn btn-primary pull-right">Go!</button>
+            </form> 
           </div>
         </div>
       </div>
